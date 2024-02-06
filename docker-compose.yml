@@ -1,7 +1,28 @@
 version: '3.9'
-  services:
-    node:
-      ...
-
-    mysql:
-      ...
+name: tp2nodemysql
+services:
+  node:
+    build: .
+    environment:
+      DATABASE_HOST: mysql
+      DATABASE_PORT: 3306
+      DATABASE_USERNAME: ynov
+      DATABASE_PASSWORD: ynov
+      DATABASE_NAME: tp2
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tp2
+      MYSQL_USER: ynov
+      MYSQL_PASSWORD: ynov
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      
